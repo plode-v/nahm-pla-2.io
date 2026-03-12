@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@75..125,300..700&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+		rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- ══ NAV ══ -->
+	<nav id="nav">
+		<a href="#" class="nav-logo">
+			<img src="./public/nahm-pla-logo-green.png" alt="Nahm Pla Logo">
+		</a>
+		<ul class="nav-links">
+			<li><a href="#about">About</a></li>
+			<li><a href="#menu">Menu</a></li>
+			<li><a href="#visit">Visit</a></li>
+		</ul>
+		<a href="#visit" class="nav-book">Reserve</a>
+		<button class="nav-burger" id="burgerBtn" aria-label="Open menu">
+			<span></span><span></span><span></span>
+		</button>
+	</nav>
+
+	<!-- ══ MOBILE MENU ══ -->
+	<div class="mob" id="mob">
+		<button class="mob-close" id="mobClose">✕</button>
+		<a href="#about" class="mob-link" onclick="closeMob()">About</a>
+		<a href="#menu" class="mob-link" onclick="closeMob()">Menu</a>
+		<a href="#visit" class="mob-link" onclick="closeMob()">Visit</a>
+		<a href="#visit" class="mob-link mob-book" onclick="closeMob()">Reserve a Table</a>
+	</div>
+
+	<!-- ══ HERO ══ -->
+	<section class="hero">
+		<div class="hero-bg">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="hero image">
+		</div>
+		<div class="hero-inner">
+			<div class="hero-year">Baltimore MD · Est. 2026</div>
+			<h1 class="hero-title"><em>Nahm</em> Pla.</h1>
+			<div class="hero-sub-title">Thai Dishes</div>
+			<p class="hero-desc">Where Bangkok street soul meets Baltimore warmth — bold curries, bright salads, and fragrant
+				soups made fresh every single day.</p>
+			<div class="hero-actions">
+				<a href="#visit" class="btn-primary">Reserve a Table</a>
+				<a href="#menu" class="btn-ghost">Explore Menu</a>
+			</div>
+		</div>
+		<div class="hero-scroll">
+			<div class="scroll-line"></div>Scroll
+		</div>
+	</section>
+
+	<!-- ══ INFO BAR ══ -->
+	<div class="info-bar">
+		<div class="info-bar-inner">
+			<div class="ib-cell reveal">
+				<div class="ib-label">Lunch</div>
+				<div class="ib-title">Dine In & Takeout</div>
+				<div class="ib-text">Tuesday – Friday<br>11:00 am – 3:00 pm</div>
+			</div>
+			<div class="ib-cell reveal rd2">
+				<div class="ib-label">Dinner</div>
+				<div class="ib-title">Full Menu</div>
+				<div class="ib-text">Tuesday – Saturday<br>From 5:00 pm</div>
+			</div>
+			<div class="ib-cell reveal rd3">
+				<div class="ib-label">Closed</div>
+				<div class="ib-title">Sunday & Monday</div>
+				<div class="ib-text">For private events,<br>contact us directly</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ══ ABOUT ══ -->
+	<section id="about">
+		<div class="about reveal">
+			<span class="eyebrow">Our Story</span>
+			<h2>Authentic Thai flavours, served with zero pretensions.</h2>
+			<p>Nahm Pla — meaning "fish sauce" in Thai — is the humble, essential soul of every great Thai dish. That's
+				exactly who we are: a neighbourhood restaurant grounded in the real flavours of Thailand, made fresh every day
+				in our Baltimore kitchen.</p>
+			<p>We bring the bold curries, bright salads, and fragrant noodle soups that Thai families have shared for
+				generations. Spice, freshness, and the flavours we grew up loving — served simply, honestly, and with heart.</p>
+			<a href="#menu" class="btn-ghost">See the Menu</a>
+		</div>
+	</section>
+
+	<!-- ══ PHOTO STRIP ══ -->
+	<div class="photo-strip">
+		<div class="photo-strip-img">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="Pad Thai" loading="lazy">
+		</div>
+		<div class="photo-strip-img">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="Curry" loading="lazy">
+		</div>
+		<div class="photo-strip-img">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="Kitchen" loading="lazy">
+		</div>
+		<div class="photo-strip-img">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="Tom Yum" loading="lazy">
+		</div>
+		<div class="photo-strip-img">
+			<img
+				src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+				alt="Dessert" loading="lazy">
+		</div>
+	</div>
+
+	<!-- ══ MENU ══ -->
+	<section class="menus-sec" id="menu">
+		<span class="eyebrow reveal">Signature Dishes</span>
+		<h2 class="reveal">Guest Favourites</h2>
+
+		<div class="menu-links reveal">
+			<a href="#" class="menu-link active">Starters</a>
+			<a href="#" class="menu-link">Mains</a>
+			<a href="#" class="menu-link">Noodles & Rice</a>
+			<a href="#" class="menu-link">Desserts</a>
+		</div>
+
+		<div class="dish-list">
+
+			<div class="dish-row reveal rd1">
+				<div class="dr-left">
+					<div class="dr-name">Pad Thai <span class="dr-name-thai">ผัดไทย</span></div>
+					<div class="dr-desc">Stir-fried rice noodles, egg, bean sprouts, crushed peanuts & tamarind. Choice of
+						chicken, shrimp, or tofu.</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$17</div>
+					<div class="dr-tags"><span class="dtag tag-g">Signature</span></div>
+				</div>
+			</div>
+
+			<div class="dish-row reveal rd2">
+				<div class="dr-left">
+					<div class="dr-name">Tom Yum Goong <span class="dr-name-thai">ต้มยำกุ้ง</span></div>
+					<div class="dr-desc">Hot & sour prawn soup with lemongrass, galangal, kaffir lime leaf & mushrooms.</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$14</div>
+					<div class="dr-tags"><span class="dtag tag-h">Spicy</span></div>
+				</div>
+			</div>
+
+			<div class="dish-row reveal rd3">
+				<div class="dr-left">
+					<div class="dr-name">Massaman Curry <span class="dr-name-thai">แกงมัสมั่น</span></div>
+					<div class="dr-desc">Rich, mild beef curry with potato, onion & peanuts in silky coconut milk. Served with
+						jasmine rice.</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$18</div>
+					<div class="dr-tags"><span class="dtag tag-g">Signature</span></div>
+				</div>
+			</div>
+
+			<div class="dish-row reveal rd4">
+				<div class="dr-left">
+					<div class="dr-name">Khao Soi <span class="dr-name-thai">ข้าวซอย</span></div>
+					<div class="dr-desc">Northern Thai coconut curry noodle soup with crispy egg noodles, pickled mustard greens &
+						shallots.</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$18</div>
+					<div class="dr-tags"><span class="dtag tag-g">Signature</span></div>
+				</div>
+			</div>
+
+			<div class="dish-row reveal rd5">
+				<div class="dr-left">
+					<div class="dr-name">Som Tum <span class="dr-name-thai">ส้มตำไทย</span></div>
+					<div class="dr-desc">Green papaya salad with tomato, green beans, dried shrimp, peanuts & chili-lime dressing.
+					</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$12</div>
+					<div class="dr-tags"><span class="dtag tag-h">Spicy</span></div>
+				</div>
+			</div>
+
+			<div class="dish-row reveal rd6">
+				<div class="dr-left">
+					<div class="dr-name">Mango Sticky Rice <span class="dr-name-thai">ข้าวเหนียวมะม่วง</span></div>
+					<div class="dr-desc">Sweet coconut sticky rice with fresh sliced mango & a drizzle of warm coconut cream.
+					</div>
+				</div>
+				<div class="dr-right">
+					<div class="dr-price">$10</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+			</div>
+
+		</div>
+		<div style="margin-top:52px;" class="reveal">
+			<a href="#" class="btn-primary">Download Full Menu PDF</a>
+		</div>
+	</section>
+
+	<!-- ══ DIVIDER IMAGE ══ -->
+	<div class="divider-img">
+		<img
+			src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+			alt="Fresh Thai Herbs" loading="lazy">
+		<div class="divider-img-caption">Fresh herbs. Sourced daily.</div>
+	</div>
+
+	<!-- ══ VISIT ══ -->
+	<section class="location-sec" id="visit">
+		<span class="eyebrow reveal">Come Visit</span>
+		<h2 class="reveal">[Street Address]<br>Baltimore, MD 20852</h2>
+
+		<div class="hours-grid reveal">
+			<div class="hg-cell">
+				<span class="hg-label">Mon – Thu</span>
+				<div class="hg-day">Monday – Thursday</div>
+				<div class="hg-time">11:00 am – 9:00 pm</div>
+			</div>
+			<div class="hg-cell">
+				<span class="hg-label">Fri – Sat</span>
+				<div class="hg-day">Friday – Saturday</div>
+				<div class="hg-time">11:00 am – 10:00 pm</div>
+			</div>
+			<div class="hg-cell">
+				<span class="hg-label">Sunday</span>
+				<div class="hg-day">Sunday</div>
+				<div class="hg-time">12:00 pm – 8:00 pm</div>
+			</div>
+		</div>
+
+		<div class="location-address reveal">
+			For reservations of 8 or more, please contact us directly at<br>
+			<a href="mailto:hello@nahmpla.com" style="color:var(--green);">hello@nahmpla.com</a>
+		</div>
+
+		<div class="location-btns reveal">
+			<a href="#" class="btn-primary">Reserve a Table</a>
+			<a href="tel:" class="btn-outline-w">📞 Call Us</a>
+			<a href="#" class="btn-outline-w">Get Directions</a>
+		</div>
+	</section>
+
+	<!-- ══ SECOND DIVIDER IMAGE ══ -->
+	<div class="divider-img" style="height:50vh;">
+		<img
+			src="https://res.cloudinary.com/htt8g4cd/image/upload/w_1920,c_limit,f_auto,q_auto/wp/03_25_thai_food_and_wine_pairings_hero_stocksy_2392448_1920x1280-1"
+			alt="Dining" loading="lazy">
+		<div class="divider-img-caption">A table for everyone.</div>
+	</div>
+
+	<!-- ══ NEWSLETTER ══
+	<section class="newsletter">
+		<span class="eyebrow reveal">Stay in the Know</span>
+		<h3 class="reveal">Join the Nahm Pla inner circle.</h3>
+		<p class="reveal">New dishes, special nights & updates — direct to your inbox. No spam, ever.</p>
+		<form class="nl-form reveal" onsubmit="return false;">
+			<input type="email" placeholder="Your email address">
+			<button type="submit">Sign Up</button>
+		</form>
+	</section> -->
+
+	<!-- ══ FOOTER ══ -->
+	<footer>
+		<div class="footer-inner">
+			<div class="footer-top">
+				<div class="f-logo-wrap">
+					<div class="f-logo">Nahm Pla</div>
+					<div class="f-tagline">Authentic Thai flavours, served daily in Baltimore MD</div>
+				</div>
+				<div class="f-cols">
+					<div class="f-col">
+						<div class="f-col-title">Navigate</div>
+						<ul>
+							<li><a href="#about">About</a></li>
+							<li><a href="#menu">Menu</a></li>
+							<li><a href="#visit">Visit Us</a></li>
+							<li><a href="#">Reserve</a></li>
+						</ul>
+					</div>
+					<div class="f-col">
+						<div class="f-col-title">Contact</div>
+						<ul>
+							<li><a href="mailto:hello@nahmpla.com">hello@nahmpla.com</a></li>
+							<li><a href="tel:">[Phone Number]</a></li>
+							<li><a href="#">Get Directions</a></li>
+						</ul>
+					</div>
+					<div class="f-col">
+						<div class="f-col-title">Follow</div>
+						<ul>
+							<li><a href="#">Instagram</a></li>
+							<li><a href="#">Facebook</a></li>
+							<li><a href="#">Google Maps</a></li>
+							<li><a href="#">Yelp</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div>© 2025 Nahm Pla Thai Dishes LLC · Baltimore, MD</div>
+				<div class="f-social">
+					<a href="#">Instagram</a>
+					<a href="#">Facebook</a>
+					<a href="#">Yelp</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		// Nav scroll
+		const nav = document.getElementById("nav");
+		window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 60));
+
+		// Mobile menu
+		const mob = document.getElementById("mob");
+		document.getElementById("burgerBtn").onclick = () => mob.classList.toggle("open");
+		document.getElementById("mobClose").onclick = () => mob.classList.remove("open");
+		function closeMob() { mob.classList.remove("open"); }
+
+		// Scroll reveal
+		const obs = new IntersectionObserver(entries => {
+			entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
+		}, { threshold: 0.08 });
+		document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+		// Menu tab switcher (visual only)
+		document.querySelectorAll(".menu-link").forEach(link => {
+			link.addEventListener("click", e => {
+				e.preventDefault();
+				document.querySelectorAll(".menu-link").forEach(l => l.classList.remove("active"));
+				link.classList.add("active");
+			});
+		});
+	</script>
+</body>
+
+</html>
