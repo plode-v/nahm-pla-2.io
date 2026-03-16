@@ -1006,6 +1006,18 @@ footer {
     transition-delay: .5s
 }
 
+.rd7 {
+    transition-delay: .57s
+}
+
+.rd8 {
+    transition-delay: .64s
+}
+
+.rd9 {
+    transition-delay: .71s
+}
+
 /* ─── RESPONSIVE ─── */
 @media(max-width:900px) {
     nav {
