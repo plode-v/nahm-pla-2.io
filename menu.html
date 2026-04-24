@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Menu — Nahm Pla Thai Dishes</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+		:root {
+			--green: #8BBF26;
+			--green-dark: #5d8a10;
+			--green-pale: #d4e89a;
+			--black: #0e0e0e;
+			--off-white: #f0ede4;
+			--dim: rgba(240,237,228,0.75);
+		}
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			font-family: "Nunito Sans", sans-serif;
+			background: #ffffff;
+			color: var(--black);
+			overflow-x: hidden;
+		}
+
+		a { text-decoration: none; color: inherit; }
+
+		/* ── HEADER ── */
+		.header {
+			background: #ffffff;
+			/*padding: 10px;*/
+			text-align: center;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+			position: sticky;
+			top: 0;
+			z-index: 10;
+		}
+
+		.header-logo {
+			height: 60px;
+			overflow: hidden;
+			display: inline-block;
+			transition: transform .3s ease;
+		}
+
+		.header-logo, img {
+			width: 70px;
+			height: 70px;
+			margin-bottom: -10px;
+
+		}
+
+		.header-sub {
+			font-size: 11px;
+			letter-spacing: 3px;
+			text-transform: uppercase;
+			color: rgba(14,14,14,.4);
+		}
+
+		/* ── STICKY TAB NAV ── */
+		.tab-nav {
+			display: flex;
+			overflow-x: auto;
+			scrollbar-width: none;
+			-webkit-overflow-scrolling: touch;
+			background: #f5f5f5;
+			border-bottom: 1px solid rgba(0,0,0,.08);
+			padding: 0 8px;
+			gap: 0;
+		}
+
+		.tab-nav::-webkit-scrollbar { display: none; }
+
+		.tab-btn {
+			flex-shrink: 0;
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 2.5px;
+			text-transform: uppercase;
+			color: rgba(14,14,14,.45);
+			padding: 14px 16px;
+			border-bottom: 2px solid transparent;
+			cursor: pointer;
+			transition: color .2s, border-color .2s;
+			white-space: nowrap;
+			background: none;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+		}
+
+		.tab-btn.active {
+			color: var(--green);
+			border-bottom-color: var(--green);
+		}
+
+		/* ── SECTIONS ── */
+		.section {
+			display: none;
+			padding: 0 0 80px;
+		}
+
+		.section.active { display: block; }
+
+		.section-heading {
+			padding: 32px 20px 0;
+			text-align: center;
+		}
+
+		.section-eyebrow {
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 5px;
+			text-transform: uppercase;
+			color: var(--green);
+			margin-bottom: 8px;
+		}
+
+		.section-title {
+			font-family: "Libre Baskerville", serif;
+			font-size: 28px;
+			font-weight: 400;
+			color: var(--black);
+			margin-bottom: 6px;
+		}
+
+		.section-note {
+			font-size: 12px;
+			color: rgba(240,237,228,.4);
+			font-style: italic;
+		}
+
+		.section-time {
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 2.5px;
+			text-transform: uppercase;
+			color: rgba(14,14,14,.45);
+			margin-top: 10px;
+		}
+
+		/* ── PROTEIN BANNER ── */
+		.protein-banner {
+			margin: 24px 16px 0;
+			background: rgba(139,191,38,.08);
+			border: 1px solid rgba(93,138,16,.35);
+			border-radius: 4px;
+			padding: 16px 20px;
+			text-align: center;
+		}
+
+		.protein-banner-label {
+			font-size: 9px;
+			font-weight: 800;
+			letter-spacing: 4px;
+			text-transform: uppercase;
+			color: var(--green);
+			margin-bottom: 10px;
+		}
+
+		.protein-options {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 6px 20px;
+		}
+
+		.protein-options span {
+			font-size: 13px;
+			color: rgba(14,14,14,.7);
+		}
+
+		.protein-options strong {
+			color: var(--green-dark);
+			font-weight: 700;
+		}
+
+		/* ── DISH LIST ── */
+		.dish-list {
+			padding: 8px 0 0;
+		}
+
+		.dish-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: 20px 20px;
+			border-bottom: 1px solid rgba(0,0,0,.08);
+			gap: 16px;
+		}
+
+		.dish-row:active { background: rgba(0,0,0,.03); }
+
+		.dr-left { flex: 1; }
+
+		.dr-name {
+			font-family: "Libre Baskerville", serif;
+			font-size: 16px;
+			color: var(--black);
+			margin-bottom: 2px;
+			line-height: 1.35;
+		}
+
+		.dr-name-thai {
+			font-size: 12px;
+			color: var(--green);
+			font-weight: 600;
+			font-style: normal;
+		}
+
+		.dr-desc {
+			font-size: 12.5px;
+			color: rgba(14,14,14,.5);
+			line-height: 1.2;
+			font-style: italic;
+		}
+
+		.dr-right {
+			flex-shrink: 0;
+			text-align: right;
+		}
+
+		.dr-price {
+			font-family: "Libre Baskerville", serif;
+			font-size: 15px;
+			color: var(--green-dark);
+			white-space: nowrap;
+		}
+
+		.dr-options {
+			margin-top: 6px;
+		}
+
+		.dr-option {
+			display: flex;
+			justify-content: space-between;
+			font-family: "Libre Baskerville", serif;
+			font-size: 14px;
+			color: var(--green-dark);
+			padding: 1px 0;
+		}
+
+		.dr-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 5px;
+			margin-top: 7px;
+		}
+
+		.dtag {
+			font-size: 8px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			padding: 3px 7px;
+			border-radius: 2px;
+		}
+
+		.tag-g { background: rgba(139,191,38,.15); color: var(--green); }
+		.tag-h { background: rgba(200,50,50,.15); color: #e07070; }
+		.tag-v { background: rgba(40,160,70,.15); color: #70cc88; }
+
+		/* ── DISH PHOTO ── */
+		.dr-photo {
+			flex-shrink: 0;
+			width: 80px;
+			height: 80px;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 2px 8px rgba(0,0,0,.12);
+		}
+
+		.dr-photo img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			transition: transform .35s ease;
+		}
+
+		.dish-row:active .dr-photo img {
+			transform: scale(1.08);
+		}
+
+		/* ── PHOTO LIGHTBOX ── */
+		.lightbox-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 100;
+			background: rgba(0,0,0,.85);
+			backdrop-filter: blur(6px);
+			-webkit-backdrop-filter: blur(6px);
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			animation: lbFadeIn .25s ease;
+		}
+
+		.lightbox-overlay.active {
+			display: flex;
+		}
+
+		@keyframes lbFadeIn {
+			from { opacity: 0; }
+			to   { opacity: 1; }
+		}
+
+		.lightbox-overlay img {
+			max-width: 92vw;
+			max-height: 80vh;
+			border-radius: 12px;
+			box-shadow: 0 8px 40px rgba(0,0,0,.5);
+			object-fit: contain;
+			animation: lbZoomIn .3s ease;
+		}
+
+		@keyframes lbZoomIn {
+			from { transform: scale(.85); opacity: 0; }
+			to   { transform: scale(1); opacity: 1; }
+		}
+
+		.lightbox-close {
+			position: absolute;
+			top: 16px;
+			right: 20px;
+			width: 36px;
+			height: 36px;
+			border: none;
+			background: rgba(255,255,255,.15);
+			color: #fff;
+			font-size: 22px;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background .2s;
+		}
+
+		.lightbox-close:hover { background: rgba(255,255,255,.3); }
+
+		/* ── CATEGORY DIVIDER ── */
+		.cat-divider {
+			padding: 30px 20px 0;
+			margin-top: 8px;
+		}
+
+		.cat-divider-label {
+			font-size: 1rem;
+			font-weight: 800;
+			letter-spacing: 4px;
+			text-transform: uppercase;
+			color: var(--green);
+			border-top: 1px solid rgba(139,191,38,.25);
+			padding-top: 16px;
+		}
+
+		/* ── FOOTER ── */
+		.menu-footer {
+			text-align: center;
+			padding: 32px 24px;
+			border-top: 1px solid rgba(0,0,0,.08);
+			background: #f5f5f5;
+		}
+
+		.menu-footer p {
+			font-size: 12px;
+			color: rgba(14,14,14,.4);
+			line-height: 1.8;
+		}
+
+		.menu-footer a {
+			color: var(--green);
+			font-weight: 700;
+		}
+
+		.menu-footer .footer-divider {
+			border: none;
+			border-top: 1px solid rgba(0,0,0,.1);
+			margin: 20px auto;
+			width: 60%;
+		}
+
+		.menu-footer .spice-guide {
+			margin-bottom: 8px;
+		}
+
+		.menu-footer .spice-guide p {
+			font-size: 13px;
+			color: rgba(14,14,14,.55);
+			margin: 2px 0;
+		}
+
+		.menu-footer .spice-guide .guide-title {
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: rgba(14,14,14,.35);
+			margin-bottom: 6px;
+		}
+
+		.menu-footer .allergy-notice {
+			font-size: 11px;
+			color: rgba(14,14,14,.35);
+			line-height: 1.7;
+		}
+
+		.menu-footer .allergy-notice .guide-title {
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: rgba(14,14,14,.35);
+			margin-bottom: 4px;
+		}
+
+		/* ── RESPONSIVE: larger thumbnails on wider screens ── */
+		@media (min-width: 480px) {
+			.dr-photo {
+				width: 100px;
+				height: 100px;
+				border-radius: 12px;
+			}
+		}
+
+		@media (min-width: 768px) {
+			.dr-photo {
+				width: 120px;
+				height: 120px;
+				border-radius: 14px;
+			}
+			.dish-row {
+				padding: 24px 28px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<header class="header">
+		<img src="/public/nahm-pla-logo-green.png" alt="Nahm Pla Logo" height="60" class="header-logo">
+	</header>
+
+	<!-- Tab Nav -->
+	<nav class="tab-nav" id="tabNav">
+		<button class="tab-btn active" data-tab="appetizers">Appetizers</button>
+		<button class="tab-btn" data-tab="salads">Salads/Yum &amp; Soups</button>
+		<button class="tab-btn" data-tab="curries">Mains</button>
+		<button class="tab-btn" data-tab="signatures">Signatures</button>
+		<button class="tab-btn" data-tab="lunch">Lunch Special</button>
+		<button class="tab-btn" data-tab="beverages">Beverages &amp; Desserts</button>
+	</nav>
+
+	<!-- ══ SIGNATURES ══ -->
+	<section class="section" id="tab-signatures">
+		<div class="section-heading">
+			<div class="section-eyebrow">Chef's Picks</div>
+			<div class="section-title">Signatures</div>
+		</div>
+		<div class="dish-list">
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Fried Fish with Fish Sauce</div>
+					<div class="dr-desc">Crispy fish with fish sauce, served with mango salad.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$24.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tamarind Shrimp / Duck</div>
+					<div class="dr-desc">Fried shrimp or duck with tamarind sauce, garlic, fried shallots, and crispy chili.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Shrimp</span><span class="dr-price">$25.95</span></div>
+						<div class="dr-option"><span>Duck</span><span class="dr-price">$28.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Crispy Duck Basil 🌶️🌶️</div>
+					<div class="dr-desc">Crispy duck stir-fried with chili, garlic, peppercorns, bell pepper, and Thai basil.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$24.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Crispy Duck Red Curry 🌶️🌶️</div>
+					<div class="dr-desc">Red curry with crispy duck, pineapple, lychee, tomatoes, bell peppers, and Thai basil.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$24.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Basil Minced Chicken with Fried Egg 🌶️🌶️</div>
+					<div class="dr-desc">Minced chicken stir-fried with basil, chili, and bell pepper served over rice with fried egg.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$18.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_PanangSalmon_2880x2304.jpg" alt="Salmon Panang Curry" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Salmon Panang Curry 🌶️🌶️</div>
+					<div class="dr-desc">Panang curry paste with coconut milk and peanut sauce, long beans, red bell peppers, topped with kaffir lime leaves.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$26.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Salmon Mango 🌶️🌶️🌶️</div>
+					<div class="dr-desc">Grilled salmon steak with mango, red onion, cherry tomato, scallion, cashew nuts, and cilantro with spicy lime dressing. Served with jasmine rice.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$26.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Crying Tiger Steak <span class="dr-name-thai">เสือร้องไห้</span></div>
+					<div class="dr-desc">Grilled ribeye (10oz) with sticky rice and tamarind dipping sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$26.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Seafood Curry Stir-Fry</div>
+					<div class="dr-desc">Stir-fried shrimp and squid with egg, onion, and green onion.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$28.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Seafood Pad Cha 🌶️🌶️🌶️</div>
+					<div class="dr-desc">Spicy stir-fried mixed seafood with chili, garlic, green beans, bell peppers, bamboo shoots, young peppercorns, and Thai basil.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$28.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_KhaoSoyNoodle_2880x2304.jpg" alt="Khao Soi Noodle" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Khao Soi Noodle 🌶️🌶️</div>
+					<div class="dr-desc">Egg noodle in Northern style curry topped with cilantro, red onion, pickled mustard green, and crispy egg noodle.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Tofu</span><span class="dr-price">$17.95</span></div>
+						<div class="dr-option"><span>Chicken</span><span class="dr-price">$18.95</span></div>
+						<div class="dr-option"><span>Beef</span><span class="dr-price">$19.95</span></div>
+						<div class="dr-option"><span>Shrimp</span><span class="dr-price">$21.95</span></div>
+						<div class="dr-option"><span>Crispy Duck</span><span class="dr-price">$24.95</span></div>
+					</div>
+				</div>
+				</div>
+		</div>
+	</section>
+
+	<!-- ══ APPETIZERS ══ -->
+	<section class="section active" id="tab-appetizers">
+		<div class="section-heading">
+			<div class="section-eyebrow">To Start</div>
+			<div class="section-title">Appetizers</div>
+		</div>
+		<div class="dish-list">
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Spring Roll (4pcs)</div>
+					<div class="dr-desc">Glass noodles and mixed vegetables (cabbage, carrot, celery, taro) wrapped and fried crispy. Served with sweet &amp; sour sauce.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$7.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Golden Tofu</div>
+					<div class="dr-desc">Deep-fried tofu served with sweet &amp; sour sauce and crushed peanuts.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$7.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_CrabRangoon_2880x2304.jpg" alt="Crab Rangoon" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Crab Rangoon</div>
+					<div class="dr-desc">Crispy wonton filled with crab meat and cream cheese.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$9.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Fried Chive Pancakes (6pcs)</div>
+					<div class="dr-desc">Crispy chive pancakes served with house soy sauce.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$8.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Little Chicken Wings 🌶️🌶️</div>
+					<div class="dr-desc">Crispy chicken wings tossed with spicy Thai herbs.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$12.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_CurryPuff_2880x2304.jpg" alt="Curry Puff" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Curry Puff (2pcs)</div>
+					<div class="dr-desc">Homemade puff pastry filled with potato, onion, and Thai coriander. Served with cucumber sauce.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Veggie</span><span class="dr-price">$8.95</span></div>
+						<div class="dr-option"><span>Chicken</span><span class="dr-price">$9.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Golden Calamari</div>
+					<div class="dr-desc">Crispy calamari with Thai herbs served with sweet chili sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$11.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_ChickenSatay_2880x2304.jpg" alt="Chicken Satay" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Chicken Satay (4 skewers)</div>
+					<div class="dr-desc">Grilled marinated chicken skewers served with house peanut sauce and cucumber sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$10.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_CoconutShrimp_2880x2304.jpg" alt="Coconut Shrimp" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Coconut Shrimp (4pcs)</div>
+					<div class="dr-desc">Fried shrimp coated with shredded coconut served with sweet chili sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$10.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_KhanomJeep_2880x2304.jpg" alt="Khanom Jeep" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Khanom Jeep <span class="dr-name-thai">ขนมจีบ</span></div>
+					<div class="dr-desc">Dumplings filled with shrimp, pork, water chestnut, and fried garlic in wonton wrappers. Served with soy sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$10.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Edamame</div>
+					<div class="dr-desc">Steamed soy bean pods tossed with "everything" seasoning and salt.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Salt</span><span class="dr-price">$6.95</span></div>
+						<div class="dr-option"><span>Everything Seasoning</span><span class="dr-price">$7.95</span></div>
+					</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_TruffleFries_2880x2304.jpg" alt="Truffle Fries" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Truffle Fries</div>
+					<div class="dr-desc">French fries tossed with truffle oil, scallion, and parmesan cheese. Served with sriracha mayo.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$10.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Gyoza</div>
+					<div class="dr-desc">Pan-fried dumplings, choice of veggie or chicken.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Veggie</span><span class="dr-price">$6.95</span></div>
+						<div class="dr-option"><span>Chicken</span><span class="dr-price">$7.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Scallion Pancake</div>
+					<div class="dr-desc">Pan-fried glutinous rice flour pancake stuffed with scallions, served with ginger sauce.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$6.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_MooYangWStickyRice_2880x2304.jpg" alt="Moo Yang with Sticky Rice" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Moo Yang with Sticky Rice <span class="dr-name-thai">ข้าวเหนียวหมูปิ้ง</span></div>
+					<div class="dr-desc">Grilled marinated pork served with sticky rice.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$13.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_ShrimpCake_2880x2304.jpg" alt="Shrimp Cake" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Shrimp Cake (4pcs)</div>
+					<div class="dr-desc">Pan-fried shrimp cake served with sweet plum sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$11.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Fresh Garden Roll</div>
+					<div class="dr-desc">Fresh rolls with vegetables served with peanut sauce.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Avocado</span><span class="dr-price">$9.95</span></div>
+						<div class="dr-option"><span>Shrimp</span><span class="dr-price">$10.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Fish Cake</div>
+					<div class="dr-desc">Fried fish cake served with sweet chili sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$9.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Crispy Pork Belly</div>
+					<div class="dr-desc">Crispy pork belly served with tamarind dipping sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$12.95</div></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ SALADS & SOUPS ══ -->
+	<section class="section" id="tab-salads">
+		<div class="section-heading">
+			<div class="section-eyebrow">Fresh &amp; Bright</div>
+			<div class="section-title">Salads/Yum &amp; Soups</div>
+		</div>
+		<div class="dish-list">
+			<div class="cat-divider"><div class="cat-divider-label">Soup</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tom Yum 🌶️🌶️</div>
+					<div class="dr-desc">Spicy and sour soup with lemongrass, galangal, kaffir lime leaves, chili paste, mushrooms, and herbs.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Veggie</span><span class="dr-price">$9.95</span></div>
+						<div class="dr-option"><span>Chicken</span><span class="dr-price">$10.95</span></div>
+						<div class="dr-option"><span>Shrimp</span><span class="dr-price">$12.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_TomKha_2880x2304.jpg" alt="Tom Kha" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Tom Kha 🌶️</div>
+					<div class="dr-desc">Coconut soup with lemongrass, galangal, kaffir lime leaves, mushrooms, and herbs.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Veggie</span><span class="dr-price">$9.95</span></div>
+						<div class="dr-option"><span>Chicken</span><span class="dr-price">$10.95</span></div>
+						<div class="dr-option"><span>Shrimp</span><span class="dr-price">$12.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tofu Soup</div>
+					<div class="dr-desc">Soft tofu soup with vegetables.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$9.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_WontonSoup_2880x2304.jpg" alt="Wonton Soup" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Wonton Soup</div>
+					<div class="dr-desc">Chicken & shrimp wontons in clear broth topped with scallions and cilantro.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$11.95</div></div>
+			</div>
+			<div class="cat-divider"><div class="cat-divider-label">Salad / Yum</div></div>
+				<div class="dish-row">
+					<div class="dr-photo" onclick="openLightbox(this)">
+						<img src="Menu Photos/NahmPlaThaiDishes_PapayaSalad_2880x2304.jpg" alt="Som Tum Thai" loading="lazy">
+					</div>
+					<div class="dr-left">
+						<div class="dr-name">Som Tum Thai 🌶️🌶️</div>
+						<div class="dr-desc">Green papaya salad with long beans, cherry tomatoes, carrots, lime, fish sauce, and peanuts.</div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$9.95</div></div>
+				</div>
+				<div class="dish-row">
+					<div class="dr-left">
+						<div class="dr-name">Som Tum Pu Pla Ra 🌶️🌶️</div>
+						<div class="dr-desc">Green papaya salad with pickled crab, fermented fish sauce, long beans, Thai eggplant, and lime dressing.</div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$10.95</div></div>
+				</div>
+				<div class="dish-row">
+					<div class="dr-photo" onclick="openLightbox(this)">
+						<img src="Menu Photos/NahmPlaThaiDishes_NamTokBeefSalad_2880x2304.jpg" alt="Nam Tok Beef Salad" loading="lazy">
+					</div>
+					<div class="dr-left">
+						<div class="dr-name">Nam Tok Beef Salad 🌶️🌶️</div>
+						<div class="dr-desc">Grilled beef with shallots, scallions, cilantro, chili flakes, toasted rice powder, and fish sauce lime dressing.</div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$13.95</div></div>
+				</div>
+				<div class="dish-row">
+					<div class="dr-left">
+						<div class="dr-name">Laab Gai 🌶️🌶️</div>
+						<div class="dr-desc">Minced chicken salad with shallots, scallions, cilantro, chili flakes, toasted rice powder, and fish sauce lime dressing.</div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$11.95</div></div>
+				</div>
+				<div class="dish-row">
+					<div class="dr-left">
+						<div class="dr-name">Acoado Salad</div>
+						<div class="dr-desc">Avocado with mixed greens, carrots, cucumber, tomatoes, and shallots, served with peanut sauce.</div>
+						<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$10.95</div></div>
+				</div>
+				<div class="dish-row">
+					<div class="dr-photo" onclick="openLightbox(this)">
+						<img src="Menu Photos/NahmPlaThaiDishes_MangoAvocadoSalad_2880x2304.jpg" alt="Mango Avocado Salad" loading="lazy">
+					</div>
+					<div class="dr-left">
+						<div class="dr-name">Mango Acoado Salad 🌶️🌶️🌶️</div>
+						<div class="dr-desc">Mango, avocado, red onions, cherry tomatoes, cilantro, and cashew nuts with chili lime dressing.</div>
+					</div>
+					<div class="dr-right"><div class="dr-price">$11.95</div></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ LUNCH SPECIAL ══ -->
+	<section class="section" id="tab-lunch">
+		<div class="section-heading">
+			<div class="section-eyebrow">Daily Special</div>
+			<div class="section-title">Lunch Special</div>
+			<div class="section-time">Monday – Friday &nbsp;|&nbsp; 11:30 AM – 3:00 PM</div>
+		</div>
+		<div class="protein-banner">
+			<div class="protein-banner-label">Lunch Combo</div>
+			<div class="protein-options">
+				<span>Tofu / Veggie / Chicken / Pork <strong>$14.95</strong></span>
+				<span>Beef <strong>$15.95</strong></span>
+				<span>Crispy Pork <strong>$16.95</strong></span>
+				<span>Crispy Chicken / Shrimp <strong>$17.95</strong></span>
+				<span>Mixed Seafood <strong>$19.95</strong></span>
+			</div>
+		</div>
+		<div class="dish-list">
+			<div class="cat-divider"><div class="cat-divider-label">Choice of Side (choose one)</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tom Yum 🌶️🌶️</div>
+					<div class="dr-desc">Chicken, Veggie, or Tofu</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tom Kha 🌶️</div>
+					<div class="dr-desc">Chicken, Veggie, or Tofu</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Tofu Soup</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Spring Rolls (2pc)</div>
+				</div>
+			</div>
+			<div class="cat-divider"><div class="cat-divider-label">Choice of Entrée</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Thai</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad See Ew</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Kee Mao 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Fried Rice</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Basil Fried Rice 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Kra Prow 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Garlic Pepper</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Cashew Nut Stir-Fry</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Eggplant Basil 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Yellow Curry 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Red Curry 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Green Curry 🌶️🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Spicy Eggplant Basil 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Prik Khing 🌶️🌶️</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Stir-Fried Vegetables with Tofu</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Woon Sen</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Ginger 🌶️</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ MAINS ══ -->
+	<section class="section" id="tab-curries">
+		<div class="section-heading">
+			<div class="section-eyebrow">Rich &amp; Fragrant</div>
+			<div class="section-title">Mains</div>
+		</div>
+		<div class="protein-banner">
+			<div class="protein-banner-label">Choose Your Protein</div>
+			<div class="protein-options">
+				<span>Tofu / Veggie <strong>$14.95</strong></span>
+				<span>Chicken / Pork <strong>$15.95</strong></span>
+				<span>Beef <strong>$16.95</strong></span>
+				<span>Crispy Pork <strong>$17.95</strong></span>
+				<span>Crispy Chicken / Shrimp <strong>$19.95</strong></span>
+				<span>Mixed Seafood <strong>$21.95</strong></span>
+			</div>
+		</div>
+		<div class="dish-list">
+			<div class="cat-divider"><div class="cat-divider-label">Curries</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Panang Curry 🌶️🌶️</div>
+					<div class="dr-desc">Panang curry paste with coconut milk and peanut sauce, long beans, red bell peppers, topped with kaffir lime leaves.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Red Curry 🌶️🌶️</div>
+					<div class="dr-desc">Red curry with coconut milk, bamboo shoots, eggplant, red bell pepper, topped with Thai basil and kaffir lime leaves.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_GreenCurryWRoti_2880x2304.jpg" alt="Green Curry" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Green Curry 🌶️🌶️</div>
+					<div class="dr-desc">Green curry with coconut milk, bamboo shoots, eggplant, red bell pepper, topped with Thai basil and kaffir lime leaves.<br><strong>Optional:</strong> with roti and cucumber relish (+$3.95)</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Yellow Curry 🌶️🌶️</div>
+					<div class="dr-desc">Yellow curry with coconot milk, tumeric, curry powder, potatoes, carroes, and onions.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Massaman Curry 🌶️🌶️</div>
+					<div class="dr-desc">Massaman curry with coconut milk, sweet potatoes, onions, peanuts, and topped with fried shallots.</div>
+				</div>
+			</div>
+			<div class="cat-divider"><div class="cat-divider-label">Noodles</div></div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_PadThai_2880x2304.jpg" alt="Pad Thai" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Pad Thai</div>
+					<div class="dr-desc">Rice noodles stir-fried with egg, tofu, bean sprouts, chives, pickled radish, and tamarind sauce.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Kee Mao (Drunken Noodles) 🌶️🌶️</div>
+					<div class="dr-desc">Wide rice noodles with chili, garlic, onions, bell peppers, jalapeños, tomatoes, and Thai basil.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad See Ew</div>
+					<div class="dr-desc">Wide rice noodles with beef, bean sprouts, and a savory sauce.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Kua Gai</div>
+					<div class="dr-desc">Pan-fried wide rice noodles with chiclen, egg, squid, pickled cabbage, and scallions.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Shredded Chicken Noodle</div>
+					<div class="dr-desc">Vermicelli rice noodles with shredded chicken, bean sprouts, and garlic soy sauce.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$16.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Beef Noodle Soup</div>
+					<div class="dr-desc">Rice noodles with beef, meatballs, bean sprouts, and hers in rich broth.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$18.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_ChickenBraisedEggNoodleSoup_2880x2304.jpg" alt="Chicken Braised Egg Noodle Soup" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Chicken Braised Egg Noodle Soup</div>
+					<div class="dr-desc">Braised chicken served with egg noodles in broth.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$16.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Chicken Tom Yum Noodle Soup 🌶️🌶️🌶️</div>
+					<div class="dr-desc">Rice noodles in Tom Yum broth with minced chicken, fish balls, bokchoy, bean sprouts, and crused peanuts.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$16.95</div></div>
+			</div>
+			<div class="cat-divider"><div class="cat-divider-label">Entrées</div></div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_PadKraProw_2880x2304.jpg" alt="Pad Kra Prow" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Pad Kra Prow 🌶️🌶️</div>
+					<div class="dr-desc">Protein, chili, garlic, long beans, onions, bell peppers, Thai basil.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_GarlicPepper_2880x2304.jpg" alt="Garlic Pepper" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Garlic Pepper</div>
+					<div class="dr-desc">Fried protein with garlic and black pepper served with broccoli.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Cashew Nut Stir Fry</div>
+					<div class="dr-desc">Cashews, onions, bell peppers, scallions, and crispy chili..</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Prik Khing 🌶️🌶️</div>
+					<div class="dr-desc">Red curry paste stir-fried with long beans, bell peppers, and kaffit lime leaves.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Eggplant Spicy Basil 🌶️🌶️</div>
+					<div class="dr-desc">Eggplant with garlic, chili, onions, bell peppers, fermented soybean sauce, and Thai basil.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Stir-Fried Mixed Vegetables with Tofu</div>
+					<div class="dr-desc">Seasonal vegetables and tofu stir-fried in garlic soy sauce.</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Woon Sen</div>
+					<div class="dr-desc">Stir-fried glass noodles with onion, scallions, carrots, broccoli, napa cabbage, mushrooms, and egg.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pad Ginger 🌶️</div>
+					<div class="dr-desc">Stir-fried meat with fresh ginger, onions, scallions, bell peppers, carrots, and mushrooms in bean sauce.</div>
+				</div>
+			</div>
+			<div class="cat-divider"><div class="cat-divider-label">Fried Rice</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Fried Rice</div>
+					<div class="dr-desc">Egg, carrots, Chinese broccoli, onions, tomatoes, and scallions.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Basil Fried Rice 🌶️🌶️</div>
+					<div class="dr-desc">Egg, onions, bell peppers, and Thai basil.</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Pineapple Fried Rice</div>
+					<div class="dr-desc">Chicken and shrimp with pineapple, egg, cashew nuts, raisins, curry powder, and scallions.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$20.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_CrabFriedRice_2880x2304.jpg" alt="Crab Fried Rice" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Crab Fried Rice</div>
+					<div class="dr-desc">Crab meat, egg, onions, carrots, scallions, and butter.</div>
+					
+				</div>
+				<div class="dr-right"><div class="dr-price">$24.95</div></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ══ BEVERAGES & DESSERTS ══ -->
+	<section class="section" id="tab-beverages">
+		<div class="section-heading">
+			<div class="section-eyebrow">Drinks &amp; Sweets</div>
+			<div class="section-title">Beverages &amp; Desserts</div>
+		</div>
+		<div class="dish-list">
+
+			<div class="cat-divider"><div class="cat-divider-label">Beverages</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Iced Tea / with Boba</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$4.95 / $5.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Iced Coffee / with Boba</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$4.95 / $5.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Thai Iced Milk Green Tea / with Boba</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$4.95 / $5.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Unsweetened Iced Tea</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Mango Iced Tea</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$4.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Peach Iced Tea</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$4.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Hot Tea</div>
+					<div class="dr-desc">Green, Jasmine, Honey Ginger</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Hot Coffee</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Coke, Diet Coke, Sprite, Ginger Ale</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">San Pallegrino Sparkling Flavors</div>
+					<div class="dr-desc">Blood Orange, Lime, Peach, Lemonade, Orange</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">San Pallegrino Sparkling Water</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95 / $6.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Spring Water</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+
+			<div class="cat-divider"><div class="cat-divider-label">Desserts</div></div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_MangoStickyRice_2880x2304.jpg" alt="Mango Sticky Rice" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Mango Sticky Rice</div>
+					<div class="dr-desc">Sweet sticky rice topped with fresh mango slices and drizzled with coconut cream.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$9.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Sweet Tapioca Pearl with Corn</div>
+					<div class="dr-desc">Warm coconut milk with tapioca pearls and sweet corn.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$6.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_FriedBananaWCoconutIceCream_2880x2304.jpg" alt="Fried Banana" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Fried Banana</div>
+					<div class="dr-desc">Crispy fried banana with honey served plain or with ice cream.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Plain</span><span>$6.95</span></div>
+						<div class="dr-option"><span>Ice Cream</span><span>$9.95</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Coconut Ice Cream</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$6.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)">
+					<img src="Menu Photos/NahmPlaThaiDishes_MangoIceCream_2880x2304.jpg" alt="Mango Ice Cream" loading="lazy">
+				</div>
+				<div class="dr-left">
+					<div class="dr-name">Mango Ice Cream</div>
+					<div class="dr-tags"><span class="dtag tag-v">Vegan</span></div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$6.95</div></div>
+			</div>
+
+			<div class="cat-divider"><div class="cat-divider-label">Sides</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Steamed Jasmine Rice</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Steamed Brown Rice</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Sticky Rice</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Steamed Noodles</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$3.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Steamed Mixed Vegetables</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$5.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Fried Egg</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Peanut Sauce</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Sweet Pineapple Sauce</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Roti</div>
+					<div class="dr-desc">Pan-fried flatbread.</div>
+				</div>
+				<div class="dr-right"><div class="dr-price">$2.95</div></div>
+			</div>
+
+			<div class="cat-divider"><div class="cat-divider-label">Add-ons</div></div>
+			<div class="dish-row">
+				<div class="dr-left">
+					<div class="dr-name">Extra Protein</div>
+					<div class="dr-desc">Additional serving of your choice of protein.</div>
+					<div class="dr-options">
+						<div class="dr-option"><span>Chicken / Pork / Tofu</span><span>$3.95</span></div>
+						<div class="dr-option"><span>Beef</span><span>$4.95</span></div>
+						<div class="dr-option"><span>Shrimp / Crispy Pork</span><span>$5.95</span></div>
+						<div class="dr-option"><span>Seafood</span><span>$7.95</span></div>
+						<div class="dr-option"><span>Crab Meat / Cripsy Duck</span><span>$9.95</span></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<footer class="menu-footer">
+		<p>340 N Charles St, Baltimore, MD<br>
+			phone: (433) 455-9456<br>
+		<a href="index.html">nahmplathaidishes.com</a></p>
+
+		<a href="https://Nahmplamd.smiledining.com" target="_blank" style="display:inline-block;margin-top:16px;padding:12px 32px;background:var(--green);color:#fff;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;border-radius:2px;text-decoration:none;">Order Online</a>
+
+		<hr class="footer-divider">
+
+		<div class="spice-guide">
+			<p class="guide-title">Spice Guide</p>
+			<p>🌶️ &nbsp;Mild</p>
+			<p>🌶️🌶️ &nbsp;Medium</p>
+			<p>🌶️🌶️🌶️ &nbsp;Spicy</p>
+		</div>
+
+		<hr class="footer-divider">
+
+		<div class="allergy-notice">
+			<p class="guide-title">Allergy Notice</p>
+			<p>Our dishes may contain peanuts, tree nuts, shellfish, gluten, eggs, dairy, fish, and soy.<br>
+			Please inform your server of any allergies before ordering.</p>
+		</div>
+	</footer>
+
+	<!-- Lightbox Overlay -->
+	<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+		<button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+		<img id="lightboxImg" src="" alt="">
+	</div>
+
+	<script>
+		const tabs = document.querySelectorAll('.tab-btn');
+		const sections = document.querySelectorAll('.section');
+
+		tabs.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const target = btn.dataset.tab;
+
+				tabs.forEach(t => t.classList.remove('active'));
+				sections.forEach(s => s.classList.remove('active'));
+
+				btn.classList.add('active');
+				document.getElementById('tab-' + target).classList.add('active');
+
+				// Scroll active tab into view
+				btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+				// Scroll page to top of content
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+		});
+
+		// Lightbox functions
+		function openLightbox(el) {
+			const img = el.querySelector('img');
+			if (!img) return;
+			const overlay = document.getElementById('lightbox');
+			const lbImg = document.getElementById('lightboxImg');
+			lbImg.src = img.src;
+			lbImg.alt = img.alt;
+			overlay.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox(e) {
+			e.stopPropagation();
+			const overlay = document.getElementById('lightbox');
+			overlay.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+
+		// Close lightbox on Escape key
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				const overlay = document.getElementById('lightbox');
+				overlay.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+		});
+	</script>
+
+</body>
+</html>

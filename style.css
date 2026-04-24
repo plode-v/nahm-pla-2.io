@@ -1,3 +1,4 @@
+
 /* ─── RESET & TOKENS ─── */
 *,
 *::before,
@@ -35,8 +36,8 @@ img {
     --black: #0e0e0e;
     --black2: #141414;
     --off-white: #f0ede4;
-    --dim: rgba(240, 237, 228, 0.45);
-    --dimmer: rgba(240, 237, 228, 0.22);
+    --dim: rgba(240, 237, 228, 0.8);
+    --dimmer: rgba(240, 237, 228, 0.55);
 }
 
 /* ─── NAV ─── */
@@ -206,10 +207,10 @@ nav.scrolled {
 }
 
 .hero-bg img {
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center;
-    overflow: hidden;
 }
 
 .hero-inner {
@@ -498,13 +499,11 @@ nav.scrolled {
 
 .menu-links {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 0;
-    margin-bottom: 80px;
-    /* border: 1px solid rgba(255, 255, 255, .1); */
     border: 1px solid rgba(0, 0, 0, .5);
-    max-width: 700px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 80px;
@@ -513,15 +512,15 @@ nav.scrolled {
 .menu-link {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--black2);
-    padding: 20px 40px;
-    /* border-right: 1px solid rgba(255, 255, 255, 1); */
+    padding: 20px 24px;
     border-right: 1px solid rgba(0, 0, 0, .5);
     transition: color .2s, background .2s;
     flex: 1;
     text-align: center;
+    white-space: nowrap;
 }
 
 .menu-link:last-child {
@@ -579,12 +578,35 @@ nav.scrolled {
 
 .dr-desc {
     font-size: 12.5px;
-    color: var(--black2);
-    opacity: 50%;
+    color: #666;
     margin-top: 6px;
     font-style: italic;
-    line-height: 1.7;
-    max-width: 420px;
+    line-height: 1.2;
+    max-width: 100%;
+}
+
+.dr-options {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dr-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13px;
+    color: var(--black2);
+    gap: 16px;
+}
+
+.dr-option span:last-child {
+    color: var(--green-dark);
+    font-family: "Libre Baskerville", serif;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 .dr-right {
@@ -595,13 +617,13 @@ nav.scrolled {
 .dr-price {
     font-family: "Libre Baskerville", serif;
     font-size: 18px;
-    color: var(--black2);
+    color: var(--green-dark);
 }
 
 .dr-tags {
     display: flex;
     gap: 6px;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-top: 6px;
     flex-wrap: wrap;
 }
@@ -972,8 +994,8 @@ footer {
 }
 
 .reveal {
-    opacity: 0;
-    transform: translateY(22px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity .7s ease, transform .7s ease;
 }
 
@@ -1004,18 +1026,6 @@ footer {
 
 .rd6 {
     transition-delay: .5s
-}
-
-.rd7 {
-    transition-delay: .57s
-}
-
-.rd8 {
-    transition-delay: .64s
-}
-
-.rd9 {
-    transition-delay: .71s
 }
 
 /* ─── RESPONSIVE ─── */
@@ -1090,6 +1100,10 @@ footer {
         gap: 8px;
     }
 
+    .dr-option {
+        flex-wrap: wrap;
+    }
+
     .dr-right {
         text-align: left;
     }
@@ -1154,4 +1168,57 @@ footer {
     .nl-form button {
         padding: 14px;
     }
+}
+
+/* ─── CATEGORY DIVIDER ─── */
+.cat-divider {
+    padding: 30px 0 0;
+    margin-top: 8px;
+}
+
+.cat-divider-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    border-top: 1px solid rgba(139, 191, 38, .25);
+    padding-top: 16px;
+}
+
+/* ─── PROTEIN CHOICE HEADER ─── */
+.protein-header {
+    text-align: center;
+    background: #92b54910;
+    border: 1px solid #5d8a1040;
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin-bottom: 8px;
+}
+
+.protein-header-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+}
+
+.protein-header-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+}
+
+.protein-header-options span {
+    font-size: 13px;
+    color: #444;
+    white-space: nowrap;
+}
+
+.protein-header-options strong {
+    color: var(--green-dark);
+    font-weight: 800;
 }
