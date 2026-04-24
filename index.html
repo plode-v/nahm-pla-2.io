@@ -563,10 +563,10 @@ nav.scrolled {
 .dish-row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-start;
     padding: 24px 0;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
-    gap: 20px;
+    gap: 16px;
 }
 
 .dish-row:hover .dr-name {
@@ -1113,8 +1113,9 @@ footer {
     }
 
     .dish-row {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
     .dr-option {
@@ -1238,6 +1239,103 @@ footer {
 .protein-header-options strong {
     color: var(--green-dark);
     font-weight: 800;
+}
+
+/* ── DISH PHOTO ── */
+.dr-photo {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    cursor: pointer;
+}
+
+.dr-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .35s ease;
+}
+
+.dish-row:hover .dr-photo img {
+    transform: scale(1.08);
+}
+
+/* ── PHOTO LIGHTBOX ── */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation: lbFadeIn .25s ease;
+}
+
+.lightbox-overlay.active {
+    display: flex;
+}
+
+@keyframes lbFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.lightbox-overlay img {
+    max-width: 92vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    object-fit: contain;
+    animation: lbZoomIn .3s ease;
+}
+
+@keyframes lbZoomIn {
+    from { transform: scale(.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s;
+}
+
+.lightbox-close:hover { background: rgba(255,255,255,.3); }
+
+@media (min-width: 480px) {
+    .dr-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .dr-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 14px;
+    }
 }
 </style>
 <body>
@@ -1382,6 +1480,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$7.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_CrabRangoon_2880x2304.jpg" alt="Crab Rangoon" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Crab Rangoon</div>
 					<div class="dr-desc">Crispy wonton filled with crab meat and cream cheese.</div>
@@ -1404,6 +1503,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$12.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_CurryPuff_2880x2304.jpg" alt="Curry Puff" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Curry Puff (2pcs)</div>
 					<div class="dr-desc">Homemade puff pastry filled with potato, onion, and Thai coriander. Served with cucumber sauce.</div>
@@ -1421,6 +1521,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$11.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_ChickenSatay_2880x2304.jpg" alt="Chicken Satay" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Chicken Satay (4 skewers)</div>
 					<div class="dr-desc">Grilled marinated chicken skewers served with house peanut sauce and cucumber sauce.</div>
@@ -1428,6 +1529,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$10.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_CoconutShrimp_2880x2304.jpg" alt="Coconut Shrimp" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Coconut Shrimp (4pcs)</div>
 					<div class="dr-desc">Fried shrimp coated with shredded coconut served with sweet chili sauce.</div>
@@ -1435,6 +1537,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$10.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_KhanomJeep_2880x2304.jpg" alt="Khanom Jeep" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Khanom Jeep <span class="dr-name-thai">ขนมจีบ</span></div>
 					<div class="dr-desc">Dumplings filled with shrimp, pork, water chestnut, and fried garlic in wonton wrappers. Served with soy sauce.</div>
@@ -1453,6 +1556,7 @@ footer {
 				</div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_TruffleFries_2880x2304.jpg" alt="Truffle Fries" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Truffle Fries</div>
 					<div class="dr-desc">French fries tossed with truffle oil, scallion, and parmesan cheese. Served with sriracha mayo.</div>
@@ -1478,6 +1582,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$6.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_MooYangWStickyRice_2880x2304.jpg" alt="Moo Yang with Sticky Rice" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Moo Yang with Sticky Rice <span class="dr-name-thai">ข้าวเหนียวหมูปิ้ง</span></div>
 					<div class="dr-desc">Grilled marinated pork served with sticky rice.</div>
@@ -1485,6 +1590,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$13.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_ShrimpCake_2880x2304.jpg" alt="Shrimp Cake" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Shrimp Cake (4pcs)</div>
 					<div class="dr-desc">Pan-fried shrimp cake served with sweet plum sauce.</div>
@@ -1532,6 +1638,7 @@ footer {
 				</div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_TomKha_2880x2304.jpg" alt="Tom Kha" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Tom Kha 🌶️</div>
 					<div class="dr-desc">Coconut soup with lemongrass, galangal, kaffir lime leaves, mushrooms, and herbs.</div>
@@ -1551,6 +1658,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$9.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_WontonSoup_2880x2304.jpg" alt="Wonton Soup" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Wonton Soup</div>
 					<div class="dr-desc">Chicken &amp; shrimp wontons in clear broth topped with scallions and cilantro.</div>
@@ -1559,6 +1667,7 @@ footer {
 			</div>
 			<div class="cat-divider"><div class="cat-divider-label">Salad / Yum</div></div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_PapayaSalad_2880x2304.jpg" alt="Som Tum Thai" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Som Tum Thai 🌶️🌶️</div>
 					<div class="dr-desc">Green papaya salad with long beans, cherry tomatoes, carrots, lime, fish sauce, and peanuts.</div>
@@ -1573,6 +1682,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$10.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_NamTokBeefSalad_2880x2304.jpg" alt="Nam Tok Beef Salad" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Nam Tok Beef Salad 🌶️🌶️</div>
 					<div class="dr-desc">Grilled beef with shallots, scallions, cilantro, chili flakes, toasted rice powder, and fish sauce lime dressing.</div>
@@ -1595,6 +1705,7 @@ footer {
 				<div class="dr-right"><div class="dr-price">$10.95</div></div>
 			</div>
 			<div class="dish-row">
+				<div class="dr-photo" onclick="openLightbox(this)"><img src="Menu Photos/NahmPlaThaiDishes_MangoAvocadoSalad_2880x2304.jpg" alt="Mango Avocado Salad" loading="lazy"></div>
 				<div class="dr-left">
 					<div class="dr-name">Mango Avocado Salad 🌶️🌶️🌶️</div>
 					<div class="dr-desc">Mango, avocado, red onions, cherry tomatoes, cilantro, and cashew nuts with chili lime dressing.</div>
@@ -2301,6 +2412,13 @@ footer {
 			</div>
 		</div>
 	</footer>
+
+	<!-- Lightbox Overlay -->
+	<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+		<button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+		<img id="lightboxImg" src="" alt="">
+	</div>
+
 	<script>
 		// Menu tab switcher
 		document.querySelectorAll(".menu-link").forEach(link => {
@@ -2314,6 +2432,33 @@ footer {
 				const target = document.getElementById("tab-" + link.dataset.tab);
 				if (target) target.style.display = "block";
 			});
+		});
+
+		// Lightbox functions
+		function openLightbox(el) {
+			const img = el.querySelector('img');
+			if (!img) return;
+			const overlay = document.getElementById('lightbox');
+			const lbImg = document.getElementById('lightboxImg');
+			lbImg.src = img.src;
+			lbImg.alt = img.alt;
+			overlay.classList.add('active');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox(e) {
+			e.stopPropagation();
+			const overlay = document.getElementById('lightbox');
+			overlay.classList.remove('active');
+			document.body.style.overflow = '';
+		}
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				const overlay = document.getElementById('lightbox');
+				overlay.classList.remove('active');
+				document.body.style.overflow = '';
+			}
 		});
 	</script>
 </body>
