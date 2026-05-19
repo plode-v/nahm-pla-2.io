@@ -1362,6 +1362,157 @@
 			border-radius: 14px;
 		}
 	}
+
+	/* ─── GALLERY CAROUSEL ─── */
+	.gallery-carousel {
+		position: relative;
+		height: 50vh;
+		min-height: 400px;
+		overflow: hidden;
+		background: #000;
+		cursor: zoom-in;
+	}
+
+	.gc-track {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	.gc-slide {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		transition: opacity .7s ease;
+	}
+
+	.gc-slide.active {
+		opacity: 1;
+	}
+
+	.gc-slide img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: brightness(.72) saturate(.85);
+		transition: transform .8s ease;
+		pointer-events: none;
+		display: block;
+	}
+
+	.gc-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 10;
+		background: rgba(0, 0, 0, .35);
+		border: 1px solid rgba(255, 255, 255, .18);
+		color: var(--off-white);
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		font-size: 26px;
+		line-height: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: background .2s, transform .2s;
+		backdrop-filter: blur(4px);
+	}
+
+	.gc-arrow:hover {
+		background: rgba(139, 191, 38, .65);
+		transform: translateY(-50%) scale(1.08);
+	}
+
+	.gc-prev { left: 28px; }
+	.gc-next { right: 28px; }
+
+	.gc-dots {
+		position: absolute;
+		bottom: 18px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 8px;
+		z-index: 10;
+	}
+
+	.gc-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: rgba(240, 237, 228, .35);
+		cursor: pointer;
+		transition: background .3s, transform .3s;
+	}
+
+	.gc-dot.active {
+		background: var(--green);
+		transform: scale(1.35);
+	}
+
+	.gc-caption {
+		position: absolute;
+		bottom: 40px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-family: "Libre Baskerville", serif;
+		font-style: italic;
+		font-size: 15px;
+		color: var(--dim);
+		letter-spacing: 1px;
+		white-space: nowrap;
+		z-index: 10;
+		pointer-events: none;
+	}
+
+	/* ─── GALLERY LIGHTBOX ─── */
+	.gc-lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 999;
+		background: rgba(0, 0, 0, .92);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity .3s;
+		cursor: default;
+	}
+
+	.gc-lightbox.active {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	.gc-lb-img {
+		max-width: 90vw;
+		max-height: 88vh;
+		object-fit: contain;
+		border-radius: 4px;
+		box-shadow: 0 40px 80px rgba(0, 0, 0, .6);
+	}
+
+	.gc-lb-close {
+		position: absolute;
+		top: 24px;
+		right: 28px;
+		background: none;
+		border: none;
+		color: var(--off-white);
+		font-size: 30px;
+		cursor: pointer;
+		opacity: .65;
+		transition: opacity .2s;
+		line-height: 1;
+	}
+
+	.gc-lb-close:hover {
+		opacity: 1;
+	}
 </style>
 
 <body>
@@ -2753,7 +2904,7 @@
 
 	<!-- ══ DIVIDER IMAGE ══ -->
 	<div class="divider-img">
-		<img src="./Menu Photos/NahmPlaThaiDishes_HERO_2880x2304.jpg" alt="Fresh Thai Herbs" loading="lazy">
+		<img src="./Menu Photos/GroupMenu.jpeg" alt="Group Menu" loading="lazy">
 		<div class="divider-img-caption">Fresh herbs. Sourced daily.</div>
 	</div>
 
@@ -2795,11 +2946,41 @@
 		</div>
 	</section>
 
-	<!-- FIXME: Add this later -->
-	<!-- ══ SECOND DIVIDER IMAGE ══ -->
-	<div class="divider-img" style="height:50vh;">
-		<img src="./Menu Photos/NahmPlaThaiDishes_HERO_2880x2304.jpg" alt="Dining" loading="lazy">
-		<div class="divider-img-caption">A table for everyone.</div>
+	<!-- ══ GALLERY CAROUSEL ══ -->
+	<div class="gallery-carousel" id="gallery">
+		<div class="gc-track" id="gcTrack">
+			<div class="gc-slide active">
+				<img src="./Menu Photos/restaurant_inside_1.jpg" alt="Inside the restaurant" loading="lazy">
+			</div>
+			<div class="gc-slide">
+				<img src="./Menu Photos/restaurant_inside_2.jpg" alt="Inside the restaurant" loading="lazy">
+			</div>
+			<div class="gc-slide">
+				<img src="./Menu Photos/restaurant_inside_3.jpg" alt="Inside the restaurant" loading="lazy">
+			</div>
+			<div class="gc-slide">
+				<img src="./Menu Photos/restaurant_outside.jpg" alt="Restaurant exterior" loading="lazy">
+			</div>
+			<div class="gc-slide">
+				<img src="./Menu Photos/restaurant_sign.jpg" alt="Restaurant sign" loading="lazy">
+			</div>
+		</div>
+		<button class="gc-arrow gc-prev" id="gcPrev" aria-label="Previous image">&#8249;</button>
+		<button class="gc-arrow gc-next" id="gcNext" aria-label="Next image">&#8250;</button>
+		<div class="gc-dots" id="gcDots">
+			<span class="gc-dot active" data-index="0"></span>
+			<span class="gc-dot" data-index="1"></span>
+			<span class="gc-dot" data-index="2"></span>
+			<span class="gc-dot" data-index="3"></span>
+			<span class="gc-dot" data-index="4"></span>
+		</div>
+		<div class="gc-caption">A table for everyone.</div>
+	</div>
+
+	<!-- Gallery Lightbox -->
+	<div class="gc-lightbox" id="gcLightbox">
+		<button class="gc-lb-close" id="gcLbClose" aria-label="Close">&times;</button>
+		<img class="gc-lb-img" id="gcLbImg" src="" alt="">
 	</div>
 
 	<!-- ══ NEWSLETTER ══
@@ -2942,6 +3123,84 @@
 				document.body.style.overflow = '';
 			}
 		});
+
+		// Gallery Carousel
+		(function () {
+			const slides = Array.from(document.querySelectorAll('.gc-slide'));
+			const dots = Array.from(document.querySelectorAll('.gc-dot'));
+			const lb = document.getElementById('gcLightbox');
+			const lbImg = document.getElementById('gcLbImg');
+			let current = 0;
+			let timer;
+
+			function goTo(index) {
+				slides[current].classList.remove('active');
+				dots[current].classList.remove('active');
+				current = (index + slides.length) % slides.length;
+				slides[current].classList.add('active');
+				dots[current].classList.add('active');
+			}
+
+			function startTimer() {
+				clearInterval(timer);
+				timer = setInterval(() => goTo(current + 1), 5000);
+			}
+
+			document.getElementById('gcPrev').addEventListener('click', (e) => {
+				e.stopPropagation();
+				goTo(current - 1);
+				startTimer();
+			});
+
+			document.getElementById('gcNext').addEventListener('click', (e) => {
+				e.stopPropagation();
+				goTo(current + 1);
+				startTimer();
+			});
+
+			dots.forEach(dot => {
+				dot.addEventListener('click', (e) => {
+					e.stopPropagation();
+					goTo(+dot.dataset.index);
+					startTimer();
+				});
+			});
+
+			// Click carousel to open lightbox
+			document.getElementById('gallery').addEventListener('click', () => {
+				const img = slides[current].querySelector('img');
+				lbImg.src = img.src;
+				lbImg.alt = img.alt;
+				lb.classList.add('active');
+				document.body.style.overflow = 'hidden';
+			});
+
+			// Close lightbox
+			function closeLb() {
+				lb.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+
+			document.getElementById('gcLbClose').addEventListener('click', (e) => {
+				e.stopPropagation();
+				closeLb();
+			});
+
+			lb.addEventListener('click', (e) => {
+				if (e.target === lb) closeLb();
+			});
+
+			document.addEventListener('keydown', (e) => {
+				if (lb.classList.contains('active')) {
+					if (e.key === 'Escape') closeLb();
+					return;
+				}
+				if (e.key === 'ArrowLeft') { goTo(current - 1); startTimer(); }
+				if (e.key === 'ArrowRight') { goTo(current + 1); startTimer(); }
+			});
+
+			startTimer();
+		})();
 	</script>
 </body>
 
